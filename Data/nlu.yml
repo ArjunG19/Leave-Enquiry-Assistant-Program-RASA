@@ -1,0 +1,144 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - heyyo
+    - hallo
+    - Hii!
+    - hey!
+- intent: provide_employee_id
+  examples: |
+    - My employee ID is [00-4698647](emp_id).
+    - Use ID [00-4698647](emp_id).
+    - I'm employee number [00-4698647](emp_id).
+    - My ID is [00-4698647](emp_id).
+    - Please use my employee ID [00-4698647](emp_id).
+    - I'm ID [14-9976621](emp_id).
+    - Here is my employee number: [00-7147034](emp_id).
+    - My ID for this request is [14-9976621](emp_id).
+    - The employee ID I want to provide is [00-7147034](emp_id).
+    - You can find my employee ID as [14-9976621](emp_id).
+    - [14-9976621](emp_id)
+    - [00-4698647](emp_id)
+    - [00-7147034](emp_id)
+- intent: check_leave_balance
+  examples: |
+    - How many leaves do I have left?
+    - What is my [emergency]{"entity": "leave_type", "value": "Emergency"} leave balance?
+    - How many [personal]{"entity": "leave_type", "value": "Personal"} leaves are remaining?
+    - How many [holiday]{"entity": "leave_type", "value": "Vacation"} days do I have left?
+    - Check the [illness]{"entity": "leave_type", "value": "Sick"} leave balance for employee ID [14-9976621](emp_id).
+    - Can you tell me the remaining [urgent]{"entity": "leave_type", "value": "Emergency"} leave days for employee number [00-4698647](emp_id)?
+    - What is the current [personal]{"entity": "leave_type", "value": "Personal"} leave balance for employee ID [00-7147034](emp_id)?
+    - How many more [vacation]{"entity": "leave_type", "value": "Vacation"} days can I take?
+    - How many [medical]{"entity": "leave_type", "value": "Sick"} leaves are left for me?
+    - Can you check my [emergency]{"entity": "leave_type", "value": "Emergency"} leave balance?
+    - How many [personal]{"entity": "leave_type", "value": "Personal"} days do I have left?
+    - How many more [vacation]{"entity": "leave_type", "value": "Vacation"} days do I have?
+    - Check the [personal]{"entity": "leave_type", "value": "Personal"} leave balance for employee ID [14-9976621](emp_id).
+    - Can you tell me the remaining [sick]{"entity": "leave_type", "value": "Sick"} days for employee number [00-4698647](emp_id)?
+    - What is the current [emergency]{"entity": "leave_type", "value": "Emergency"} leave balance for employee ID [00-7147034](emp_id)?
+    - How many leaves are left for me?
+    - what is my leave balance?
+    - whats my leave balance?
+    - how many leaves are remaining?
+    - how many more leaves i could take?
+    - what is my leave balance
+    - [sick]{"entity": "leave_type", "value": "Sick"} leave balance
+    - how many leaves are left?
+    - and whats my [sick]{"entity": "leave_type", "value": "Sick"} leave balance?
+    - and how many leaves are remaining?
+    - whats the [medical]{"entity": "leave_type", "value": "Sick"} leave balance for [00-4698647](emp_id)
+    - whats my leave balance
+    - what is leave balance for [00-4698647](emp_id)
+    - and how many are remaining?
+    - and how many [vacation]{"entity": "leave_type", "value": "Vacation"} days are remaining?
+    - and how many [personal]{"entity": "leave_type", "value": "Personal"} days are left?
+- intent: check_leave_policy
+  examples: |
+    - How many total leaves do i get?
+    - How many [medical]{"entity": "leave_type", "value": "Sick"} leaves do i get?
+    - how many total leaves am i allowed to take?
+    - What is my current leave policy?
+    - How many leaves i could take in total?
+    - Tell me about the company's leave policy.
+    - How many leaves do employee [14-9976621](emp_id) get?
+    - What is the current [personal]{"entity": "leave_type", "value": "Personal"} leave policy for employee ID [00-7147034](emp_id)?
+    - How many [sick]{"entity": "leave_type", "value": "Sick"} leaves can I take in total?
+    - What is the leave policy for [sick]{"entity": "leave_type", "value": "Sick"} leave?
+    - How many [vacation]{"entity": "leave_type", "value": "Vacation"} days are included in the company's policy?
+    - whats the total [emergency]{"entity": "leave_type", "value": "Emergency"} leaves for employee [00-7147034](emp_id)?
+    - i get how many [vacations]{"entity": "leave_type", "value": "Vacation"} in total?
+    - whats the policy for [urgent]{"entity": "leave_type", "value": "Emergency"} leaves?
+    - whats my leave policy
+    - leave policy
+    - whats the leave policy for emp id [00-4698647](emp_id)
+    - how many total leaves do i get
+    - and how many total do i get?
+    - how many [vacation]{"entity": "leave_type", "value": "Vacation"} leaves do i get?
+    - and how many toal [sick]{"entity": "leave_type", "value": "Sick"} leaves do i get?
+    - How many [sick]{"entity": "leave_type", "value": "Sick"} leaves do employee [00-7147034](emp_id) get?
+    - how many total leaves do i get?
+    - how many leaves do [00-7147034](emp_id) get?
+- intent: goodbye
+  examples: |
+    - bye
+    - byeee
+    - goodbye
+    - byee
+- intent: bot_identity
+  examples: |
+    - Are you a bot?
+    - What are you?
+    - Tell me about yourself
+    - What can you do?
+    - who am i talking to?
+    - am i talking to a person?
+    - who are you?
+- intent: nlu_fallback
+  examples: |
+    - what is your favorite color?
+    - what is 2+2?
+    - who is the president of india?
+    - what is the capital of usa?
+- synonym: Emergency
+  examples: |
+    - emergency
+    - urgent
+    - immediate
+    - Emergency
+- synonym: Personal
+  examples: |
+    - personal
+    - personal time off
+    - personal reasons
+- synonym: Vacation
+  examples: |
+    - holiday
+    - vacation
+    - vacations
+    - holidays
+    - time off
+- synonym: Sick
+  examples: |
+    - illness
+    - medical
+    - sick
+    - unwell
+    - ill
+- regex: emp_id
+  examples: |
+    - \d{2}-\d{7}

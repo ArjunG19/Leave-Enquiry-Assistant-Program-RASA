@@ -1,0 +1,208 @@
+version: "3.1"
+
+
+
+stories:
+
+  - story: greet
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - checkpoint: greet_checkpoint
+  
+  - story: check leave balance with emp_id
+    steps: 
+      - checkpoint: greet_checkpoint
+      - intent: check_leave_balance
+      - slot_was_set:
+        - emp_id: 00-4698647
+      - action: action_check_leave_balance
+      - checkpoint: greet_checkpoint
+  
+  - story: check leave balance without emp_id
+    steps: 
+      - checkpoint: greet_checkpoint
+      - intent: check_leave_balance
+      - slot_was_set:
+        - emp_id: null
+      - action: utter_provide_employee_id
+      - intent: provide_employee_id
+      - slot_was_set: 
+        - emp_id: 00-4698647
+      - action: action_check_leave_balance
+      - checkpoint: greet_checkpoint
+
+  - story: check leave policy with emp_id
+    steps: 
+      - checkpoint: greet_checkpoint
+      - intent: check_leave_policy
+      - slot_was_set:
+        - emp_id: 00-4698647
+      - action: action_check_leave_policy
+      - checkpoint: greet_checkpoint
+
+  - story: check leave policy without emp_id
+    steps: 
+      - checkpoint: greet_checkpoint
+      - intent: check_leave_policy
+      - slot_was_set:
+        - emp_id: null
+      - action: utter_provide_employee_id
+      - intent: provide_employee_id
+      - slot_was_set: 
+        - emp_id: 00-4698647
+      - action: action_check_leave_policy
+      - checkpoint: greet_checkpoint
+
+  - story: interactive_story_1
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_policy
+      entities:
+      - emp_id: 00-4698647
+    - slot_was_set:
+      - emp_id: 00-4698647
+    - or:
+      - slot_was_set: 
+        - leave_type: null
+      - slot_was_set:
+        - leave_type: Sick
+    - action: action_check_leave_policy
+    - intent: check_leave_balance
+    - action: action_check_leave_balance
+
+  - story: interactive_story_2
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_policy
+    - action: utter_provide_employee_id
+    - intent: provide_employee_id
+      entities:
+      - emp_id: 00-4698647
+    - slot_was_set:
+      - emp_id: 00-4698647
+    - or:
+      - slot_was_set: 
+        - leave_type: null
+      - slot_was_set:
+        - leave_type: Sick
+    - action: action_check_leave_policy
+    - intent: check_leave_balance
+    - action: action_check_leave_balance
+
+  
+
+  - story: interactive_story_3
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_balance
+      entities:
+      - emp_id: 00-4698647
+    - slot_was_set:
+      - emp_id: 00-4698647
+    - or:
+      - slot_was_set: 
+        - leave_type: null
+      - slot_was_set:
+        - leave_type: Sick
+    - action: action_check_leave_balance
+    - intent: check_leave_policy
+    - action: action_check_leave_policy
+
+  - story: interactive_story_4
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_balance
+    - action: utter_provide_employee_id
+    - intent: provide_employee_id
+      entities:
+      - emp_id: 00-4698647
+    - slot_was_set:
+      - emp_id: 00-4698647
+    - or:
+      - slot_was_set: 
+        - leave_type: null
+      - slot_was_set:
+        - leave_type: Sick
+    - action: action_check_leave_balance
+    - intent: check_leave_policy
+    - action: action_check_leave_policy
+
+  
+  - story: interactive_story_1
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_balance
+      entities:
+      - emp_id: 00-4698647
+    - slot_was_set:
+      - emp_id: 00-4698647
+    - action: action_check_leave_balance
+    - intent: check_leave_policy
+      entities:
+      - leave_type: Sick
+    - slot_was_set:
+      - leave_type: Sick
+    - action: action_check_leave_policy
+    - intent: greet
+    - intent: goodbye
+    - action: utter_goodbye
+    - action: action_restart
+
+  - story: interactive_story_1
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_policy
+      entities:
+      - leave_type: Sick
+      - emp_id: 00-7147034
+    - slot_was_set:
+      - emp_id: 00-7147034
+    - slot_was_set:
+      - leave_type: Sick
+    - action: action_check_leave_policy
+    - intent: check_leave_balance
+    - action: action_check_leave_balance
+    
+
+  - story: interactive_story_1
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_policy
+    - action: utter_provide_employee_id
+    - intent: provide_employee_id
+      entities:
+      - emp_id: 00-7147034
+    - slot_was_set:
+      - emp_id: 00-7147034
+    - action: action_check_leave_policy
+    - intent: check_leave_balance
+      entities:
+      - leave_type: Vacation
+    - slot_was_set:
+      - leave_type: Vacation
+    - action: action_check_leave_balance
+
+  - story: interactive_story_2
+    steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: check_leave_policy
+      entities:
+      - emp_id: 00-7147034
+    - slot_was_set:
+      - emp_id: 00-7147034
+    - action: action_check_leave_policy
+    - intent: check_leave_balance
+      entities:
+      - leave_type: Personal
+    - slot_was_set:
+      - leave_type: Personal
+    - action: action_check_leave_balance
