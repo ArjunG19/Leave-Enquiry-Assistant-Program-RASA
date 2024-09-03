@@ -1,0 +1,51 @@
+version: '3.1'
+intents:
+- bot_identity
+- check_leave_balance
+- check_leave_policy
+- goodbye
+- greet
+- nlu_fallback
+- provide_employee_id
+responses:
+  utter_greet:
+  - text: Hello! How may I help you?
+  utter_provide_employee_id:
+  - text: Please provide your employee ID (##-#######)
+  utter_goodbye:
+  - text: Bye! Hope you have a great day!
+  utter_please_rephrase:
+  - text: Sorry, I didn't quite understand that. Can you please rephrase?
+  - text: We couldn't find the information you're looking for. LEAP is always learning - your feedback helps us improve.
+  utter_bot_identity:
+  - text: I am LEAP, a chatbot for Leave Enquiry Assistant Program.
+  - text: I am LEAP an Intelligent digital assistant here to help you.
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+entities:
+- leave_type
+- emp_id
+slots:
+  emp_id:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: emp_id
+  leave_type:
+    type: categorical
+    influence_conversation: false
+    values:
+    - Sick
+    - Emergency
+    - Personal
+    - Vacation
+    mappings:
+    - type: from_entity
+      entity: leave_type
+actions:
+- utter_provide_employee_id
+- action_check_leave_policy
+- action_check_leave_balance
+- utter_greet
+- utter_goodbye

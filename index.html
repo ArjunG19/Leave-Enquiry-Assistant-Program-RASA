@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMRC Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+        body {
+            
+            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2); /* Light blue gradient */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: #003366; /* Dark blue */
+            color: #ffffff;
+            padding: 20px 30px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            
+        }
+
+        header .logo img {
+            height: 70px;
+        }
+
+        header .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            
+        }
+        
+
+          header .logo .logo-text {
+              margin-left: 15px; /* Adjust the margin as needed */
+          }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 25px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+            color: #b2ebf2; /* Light blue on hover */
+        }
+
+        .main-content {
+            margin-top: 100px; /* Space for fixed header */
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 150px auto;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95); /* White background with slight opacity */
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: 1px solid #b2ebf2; /* Light blue border */
+        }
+
+        .section h2 {
+            color: #003366; /* Dark blue */
+            border-bottom: 3px solid #004080; /* Slightly lighter blue border */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            border: 1px solid #b2ebf2; /* Light blue border */
+        }
+
+        .notices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notices ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notices ul li {
+            background: #b2ebf2; /* Light cyan */
+            border: 1px solid #80deea; /* Light blue border */
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .map-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .map-stats .stat {
+            flex: 1;
+            margin: 0 15px;
+            font-size: 1.3em;
+            color: #003366;
+        }
+
+        .map-stats .stat p {
+            margin: 5px 0;
+        }
+
+        .map-stats .stat small {
+            display: block;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .map-stats img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            border: 1px solid #b2ebf2; /* Light blue border */
+        }
+
+        .other-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .other-features ul li {
+            background: #b2ebf2;
+            border: 1px solid #80deea;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .other-features ul li a {
+            text-decoration: none;
+            color: #003366;
+            font-size: 1.1em;
+        }
+
+        .other-features ul li a:hover {
+            text-decoration: underline;
+            color: #004080; /* Slightly lighter blue on hover */
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #003366; /* Dark blue */
+            color: #ffffff;
+            padding: 15px 30px;
+            text-align: center;
+            
+        }
+
+        .chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%); /* Move out of view initially */
+            transition: transform 0.3s ease-in-out;
+            display: none; /* Hide chatbox initially */
+        }
+
+        .chatbox.open {
+            transform: translateY(0); /* Slide into view */
+            display: flex; /* Show chatbox when open */
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            
+            background: #32a6bb; /* Dark blue */
+            border-radius: 20px 20px 0 0;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .top-bar .minimize-btn {
+            position: absolute;
+            right: 15px;
+            top: 17px;
+            background: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            color: #003366;
+        }
+
+        .top-bar .minimize-btn:hover {
+            background: #f29182;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .name {
+            flex: 1;
+            font-size: 1.3em;
+            color: #ffffff;
+            font-weight: 600;
+            margin-left: 15px;
+        }
+
+        .middle {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #e0f7fa; /* Light cyan */
+        }
+
+        .bottom-bar {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            
+            background: #bcdcd9;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .bottom-bar input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .bottom-bar button {
+            border: none;
+            background: #34afc4; /* Dark blue */
+            color: #ffffff;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        .bottom-bar button:hover {
+            background: #268495; /* Slightly lighter blue */
+        }
+
+        .user-message, .bot-message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .user-message div, .bot-message div {
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 18px;
+            line-height: 1.5;
+            max-width: 80%;
+            white-space: pre-wrap;
+        }
+
+        .user-message div {
+            background: #003366; /* Dark blue */
+            color: #ffffff;
+            margin-left: 10px;
+        }
+
+        .bot-message div {
+            background: #b2ebf2; /* Light cyan */
+            color: #003366;
+            margin-right: 10px;
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            background: #4bd7ef; /* Dark blue */
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            transition: background 0.3s;
+        }
+
+        .chat-toggle:hover {
+            background: #32a6bb; /* Slightly lighter blue */
+        }
+
+        .chat-toggle .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 75px;
+            right: 10px;
+            background: #32a6bb; /* Dark blue */
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 18px;
+            white-space: nowrap;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-toggle:hover .tooltip {
+            display: block;
+        }
+
+        /* Optional: Add outlines of trains in background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://example.com/images/train-outline.png') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1; /* Light transparency */
+            z-index: -1; /* Ensure it stays behind the content */
+        }
+    </style>
+</head>
+<body>
+    <header>
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Delhi_Metro_logo.svg/698px-Delhi_Metro_logo.svg.png" alt="DMRC Logo">
+        <div class="logo-text">Delhi Metro Rail Corporation</div>
+    </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#notices">Notices & Alerts</a></li>
+                <li><a href="#map">Metro Map</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="section" id="notices">
+            <h2>Notices & Alerts</h2>
+            <div class="notices">
+                <ul>
+                    <li><strong>Notice:</strong> Track maintenance scheduled on Line 2 from 10 PM to 5 AM.</li>
+                    <li><strong>Alert:</strong> Service disruptions expected due to ongoing construction on Line 5.</li>
+                    <li><strong>Announcement:</strong> New station opening on Line 6 next month. Stay tuned for updates.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="map">
+            <div class="map-stats">
+                <div class="stat">
+                    <p><strong>Total Network Length (km):</strong></p>
+                    <p>393</p>
+                </div>
+                <div class="stat">
+                    <p><strong>Total no of Lines:</strong></p>
+                    <p>12</p>
+                </div>
+                <div class="stat">
+                    <p><strong>Total no of Stations:</strong></p>
+                    <p>288</p>
+                </div>
+            </div>
+            <h2>Interactive Metro Map</h2>
+            <img src="https://delhimetrorail.com/static/media/mapimgEng.6f2a6c7e.jpg" alt="Interactive Metro Map">
+        </div>
+
+        <div class="section" id="other-features">
+            <h2>Other Features</h2>
+            <div class="other-features">
+                <ul>
+                    <li><a href="#">Fare Calculator</a></li>
+                    <li><a href="#">Tool Guide</a></li>
+                    <li><a href="#">Tickets</a></li>
+                    <li><a href="#">Metro Museum</a></li>
+                    <li><a href="#">Travel Advisory</a></li>
+                    <li><a href="#">Lost and Found</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Delhi Metro Rail Corporation. All rights reserved.</p>
+        <p>
+          <a href="#" style="color: rgb(137, 65, 245);">Privacy Policy</a> | 
+          <a href="#" style="color: rgb(137, 65, 245);">Terms of Service</a>
+        </p>
+    </footer>
+
+    <div class="chatbox">
+        <div class="top-bar">
+            <div class="avatar">
+                <img src="data:image/png;base64,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">
+            </div>
+            <div class="name">Leap</div>
+            <button class="minimize-btn"><i class="fas fa-minus"></i></button>
+        </div>
+        <div class="middle">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+        <div class="bottom-bar">
+            <input type="text" placeholder="Type a message..." />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div class="chat-toggle">
+        <i class="fas fa-comments"></i>
+        <div class="tooltip">Hi I am Leap, your AI assistant!</div>
+    </div>
+
+    <script>
+        const chatbox = document.querySelector('.chatbox');
+        const chatToggle = document.querySelector('.chat-toggle');
+        const minimizeBtn = document.querySelector('.minimize-btn');
+
+        chatToggle.addEventListener('click', () => {
+            chatbox.classList.add('open');
+            chatToggle.style.display = 'none';
+            chatbox.style.display = 'flex'; // Show chatbox when opened
+        });
+
+        minimizeBtn.addEventListener('click', () => {
+            chatbox.classList.remove('open');
+            chatbox.style.display = 'none'; // Hide the chatbox completely
+            chatToggle.style.display = 'flex';
+        });
+
+        // Optional: Auto-show chatbox if a message is received
+        const messagesDiv = document.querySelector('.middle');
+        const inputField = document.querySelector('.bottom-bar input');
+
+        async function sendMessage() {
+    const userMessage = inputField.value;
+    if (userMessage.trim() === '') return;
+
+    // Display user message
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.className = 'user-message';
+    userMessageDiv.innerHTML = `<div>${userMessage}</div>`;
+    messagesDiv.appendChild(userMessageDiv);
+    inputField.value = '';
+
+    try {
+        // Send user message to Rasa server
+        const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sender: 'user', message: userMessage })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Display bot response
+        data.forEach(message => {
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'bot-message';
+            
+            // Convert newlines to <br> tags
+            const formattedText = message.text.replace(/\n/g, '<br>');
+            botMessageDiv.innerHTML = `<div>${formattedText}</div>`;
+            
+            messagesDiv.appendChild(botMessageDiv);
+        });
+
+        // Clear chat if /restart command is detected in the response
+        if (userMessage.trim().toLowerCase() === '/restart') {
+            messagesDiv.innerHTML = '';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        const errorDiv = document.createElement('div');
+        errorDiv.style.color = 'red';
+        errorDiv.textContent = 'Error communicating with the chatbot. Please try again later. Any incovenience is regretted.';
+        messagesDiv.appendChild(errorDiv);
+    }
+}
+
+
+        // Handle Enter key press for sending messages
+        inputField.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
